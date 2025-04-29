@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "starter_pack_k8s",
+			"path": "../starter_pack_k8s"
+		},
+		{
+			"name": "test_api",
+			"path": "../test_api"
+		}
+	],
+	"settings": {}
+}
