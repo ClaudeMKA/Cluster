@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
+  namespace: chips   # <-- ajouté ici
 spec:
   replicas: 1
   selector:
@@ -27,12 +28,13 @@ spec:
           mountPath: /var/lib/mysql
       volumes:
       - name: mysql-data
-        emptyDir: {}  # Pour le test - disque éphémère
+        emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: mysql
+  namespace: chips   # <-- ajouté ici aussi
 spec:
   selector:
     app: mysql
@@ -40,4 +42,4 @@ spec:
     - protocol: TCP
       port: 3306
       targetPort: 3306
-  clusterIP: None  # Pour un accès direct (facultatif)
+  clusterIP: None

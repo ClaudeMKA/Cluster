@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: flask-api
+  namespace: chips
 spec:
   replicas: 1
   selector:
@@ -14,23 +15,26 @@ spec:
     spec:
       containers:
       - name: flask-api
-        image: flask-api:latest    # <-- Remplacer par ton image Docker
+        image: flask-api:latest               # <-- image locale
+        imagePullPolicy: IfNotPresent         # <-- ajout crucial
         ports:
         - containerPort: 5000
         env:
         - name: MYSQL_HOST
-          value: mysql              # Le service Kubernetes qui pointera vers MySQL
+          value: mysql
         - name: MYSQL_USER
           value: root
         - name: MYSQL_PASSWORD
           value: rootpassword
         - name: MYSQL_DATABASE
           value: chipsdb
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: flask-api
+  namespace: chips
 spec:
   selector:
     app: flask-api
